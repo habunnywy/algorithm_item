@@ -79,53 +79,41 @@ nums数组大小为5
 
 """
 
+def find_all_substrings(str_input, sub_str):
+    # 如果输入str是list,则转换成str
+    if isinstance(str_input, list):
+        str_input = ''.join(map(str,str_input))
+    if isinstance(sub_str, int):
+        sub_str = str(sub_str)
+    start = 0
+    result = []
+    while start < len(str_input):
+        start = str_input.find(sub_str, start)
+        if start == -1:
+            break
+        result.append(start)
+        start += 1
+
+    out_start = 0
+    out_end = 0
+    for s in result:
+        if str_input[s-1]<str_input[s]:
+            out_start = s
+            break
+    for s in result:
+        if str_input[s+1]>str_input[s]:
+            out_end = s
+            break
+    return out_start, out_end
+
 # 输入的nums大小
 n=int(input().strip())
 # 输入所有保温长度
 s=list(map(int,input().strip().split()))
 # 需要重发的报文
 sn=int(input().strip())
-def is_sorted(lst):
-    before=lst[:-1]
-    after=lst[1:]
-    sorted_value=True
-    unsorted_index=-1
-    for i in range(n-1):
-        if before[i]>after[i]:
-            sorted_value=False
-            unsorted_index=i+1
-            return sorted_value,unsorted_index
-    return sorted_value,unsorted_index
-sorted_value,unsorted_index=is_sorted(s)
-if sorted_value:
-    try:
-        start=s.index(sn)
-    except Exception:
-        start=-1
-    s.reverse()
-    try:
-        end=n-s.index(sn)-1
-    except Exception:
-        end=-1
-    print(start,end)
-else:
-    try:
-        start=s[unsorted_index:].index(sn)+unsorted_index
-    except Exception:
-        try:
-            start=s[:unsorted_index].index(sn)
-        except Exception:
-            start=-1
-    try:
-        tmp=s[:unsorted_index]
-        tmp.reverse()
-        end=unsorted_index-tmp.index(sn)-1
-    except Exception:
-        try:
-            tmp=s[unsorted_index:]
-            tmp.reverse()
-            end=len(tmp)-tmp.index(sn)-1+unsorted_index
-        except Exception:
-            end=-1
 
-    print(start,end)
+
+start,end = list(find_all_substrings(s, sn))
+
+print(start,end)
