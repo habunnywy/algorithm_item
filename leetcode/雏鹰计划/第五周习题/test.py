@@ -1,4 +1,6 @@
-a = [1,2,3]
-a.pop()
+
+
+a = [3,8,7]
+a =sorted(a)
 
 print(a)
