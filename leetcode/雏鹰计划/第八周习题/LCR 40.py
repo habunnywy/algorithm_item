@@ -58,6 +58,6 @@ class Solution:
 
 if __name__ == '__main__':
     solution = Solution()
-    candidates = [10, 1, 2, 7, 6, 1, 5]
+    candidates = [10, 1, 2, 7, 6, 1, 4, 5]
     target = 8
     print(solution.combinationSum2(candidates, target))
